@@ -9,7 +9,7 @@ function Point(x,y,c){
 
 Point.prototype.show = function () {
 	fill(this.color);
-	circle(this.position.x, this.position.y, 30);
+	circle(this.position.x, this.position.y, 20);
 };
 
 Point.prototype.steer = function () {
