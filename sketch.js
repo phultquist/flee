@@ -1,8 +1,10 @@
 var h = window.innerHeight - 50,
 		w = window.innerWidth - 50;
 
-var pointsX = 70,
+var pointsX = 50,
 		pointsY = parseInt(h/(w/pointsX))
+
+var randomColors = false;
 
 var points = [];
 let img;
@@ -11,6 +13,11 @@ function preload(){
 }
 
 function setup() {
+	const queryString = window.location.href.toString();
+	const url = new URL(queryString);
+	if (url.searchParams.get("random") == 1){
+		randomColors = true;
+	};
 
 	createCanvas(w, h);
 	background(51);
@@ -27,8 +34,12 @@ function setup() {
 	for (r = 0; r < pointsY; r++){
 		for (c = 0; c < pointsX; c++){
 			var colorp = colors[c+r*pointsX];
-			newPoint = new Point((w/(pointsX+1)) * (c+1), (h/(pointsY+1)) * (r+1), colorp);
-			//newPoint = new Point((w/(pointsX+1)) * (c+1), (h/(pointsY+1)) * (r+1), color(random(100), 100, 100));
+			if (randomColors){
+				newPoint = new Point((w/(pointsX+1)) * (c+1), (h/(pointsY+1)) * (r+1), color(random(255), random(255), random(255)));
+			} else {
+				newPoint = new Point((w/(pointsX+1)) * (c+1), (h/(pointsY+1)) * (r+1), colorp);
+			}
+
 			newPoint.show();
 			points.push(newPoint);
 		}
