@@ -23,7 +23,7 @@ Point.prototype.steer = function () {
 Point.prototype.flee = function (mx, my) {
 	var desired = p5.Vector.sub(createVector(mx,my), this.position)
 	var distance = desired.mag();
-	if (distance<50){
+	if (distance<fleeRadius){
 		desired.mult(-20);
 	}else{
 		return;

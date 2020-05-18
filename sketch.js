@@ -4,7 +4,9 @@ var h = window.innerHeight - 50,
 var pointsX = 50,
 		pointsY = parseInt(h/(w/pointsX))
 
-var randomColors = false;
+var randomColors = false,
+		fixedFlee = false,
+		fleeRadius = 50;
 
 var points = [];
 let img;
@@ -18,6 +20,13 @@ function setup() {
 	if (url.searchParams.get("random") == 1){
 		randomColors = true;
 	};
+	if (url.searchParams.get("fixed") == 1) {
+		fixedFlee = true;
+	}
+	var radParam = url.searchParams.get("radius")
+	if (radParam != null){
+		fleeRadius = radParam;
+	}
 
 	createCanvas(w, h);
 	background(51);
@@ -25,7 +34,6 @@ function setup() {
 	img.resize(pointsX, pointsY);
 	img.loadPixels();
 	var pix = img.pixels;
-	console.log(pix);
 	var colors = [];
 	for (i = 0; i < pix.length; i+= 4){
 		colors.push(color(pix[i],pix[i+1],pix[i+2],pix[i+3]));
@@ -52,7 +60,11 @@ function draw() {
   // put drawing code here
 	background(51);
 	for (p in points){
-		points[p].flee(mouseX, mouseY);
+		if (fixedFlee){
+			points[p].flee(width/2, height/2);
+		} else {
+			points[p].flee(mouseX, mouseY);
+		}
 		points[p].steer();
 		points[p].update();
 		points[p].show();
