@@ -1,7 +1,7 @@
 var h = window.innerHeight - 50,
 		w = window.innerWidth - 50;
 
-var pointsX = 40,
+var pointsX = 70,
 		pointsY = parseInt(h/(w/pointsX))
 
 var points = [];
